@@ -190,12 +190,13 @@ app.get("/", async (req, res) => {
   res.send("App Is Running");
 });
 
-// server.listen(process.env.PORT || 5000, () => {
-//   console.log(`Server is running on port 5000`,this.address().port, app.settings.env);
-// });
-app.listen(process.env.PORT || 5000, function(){
+server.listen(process.env.PORT || 5000, () => {
+  // console.log(`Server is running on port 5000`,this.address().port, app.settings.env);
   console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
 });
+// app.listen(process.env.PORT || 5000, function(){
+ 
+// });
 app.use(ErrorMiddleware);
 // zuoYdCmrxdA2Vzb0
 // seatweb4
