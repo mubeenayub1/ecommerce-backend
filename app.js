@@ -49,7 +49,7 @@ app.use("/contactus", ContactusRouter);
 app.use("/blog", blogRouter);
 app.use("/faq", FaqRouter);
 app.use("/admin", adminRoute);
-// app.use("/category", categoryRouter);
+app.use("/category", categoryRouter);
 app.use("/subcategory", subcategoryRouter);
 app.use("/sizeGuide", sizeRouter);
 app.use("/products", productRouter);
@@ -192,7 +192,7 @@ app.get("/", async (req, res) => {
 
 server.listen(process.env.PORT || 5000, () => {
   // console.log(`Server is running on port 5000`,this.address().port, app.settings.env);
-  console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
+  console.log("Express server listening on port %d in %s mode", app.settings.env);
 });
 // app.listen(process.env.PORT || 5000, function(){
  
