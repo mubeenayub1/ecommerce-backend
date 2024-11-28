@@ -14,6 +14,7 @@ import subcategoryRouter from "./routes/SubCategory.js";
 import sizeRouter from "./routes/SizeGuideRoute.js";
 import productRouter from './routes/ProductRouter.js';
 import brandRouter from "./routes/BrandRouter.js";
+import { createServer } from "http";
 
 // import bodyParser from 'body-parser';
 // import puppeteer from 'puppeteer';
@@ -25,7 +26,6 @@ import brandRouter from "./routes/BrandRouter.js";
 
 // import { isCheerio } from "cheerio/utils";
 connectDB();
-import { createServer } from "http";
 
 app.use(cors());
 app.use(express.json());
@@ -190,9 +190,9 @@ app.get("/", async (req, res) => {
   res.send("App Is Running");
 });
 
-server.listen(process.env.PORT || 5000, () => {
+app.listen(process.env.APP_PORT || 5000, () => {
   // console.log(`Server is running on port 5000`,this.address().port, app.settings.env);
-  console.log("Express server listening on port %d in %s mode", app.settings.env);
+  console.log("Express server listening on port %d in %s mode");
 });
 // app.listen(process.env.PORT || 5000, function(){
  
