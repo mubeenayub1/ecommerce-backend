@@ -49,7 +49,7 @@ app.use("/contactus", ContactusRouter);
 app.use("/blog", blogRouter);
 app.use("/faq", FaqRouter);
 app.use("/admin", adminRoute);
-app.use("/category", categoryRouter);
+// app.use("/category", categoryRouter);
 app.use("/subcategory", subcategoryRouter);
 app.use("/sizeGuide", sizeRouter);
 app.use("/products", productRouter);
