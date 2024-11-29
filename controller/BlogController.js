@@ -18,9 +18,9 @@ export const createBlog = catchAsyncError(async (req, res, next) => {
        image: slider,
        content: data?.content,
        title:data?.title,
-       subtitle:data?.subtitle
+       shortDescription:data?.shortDescription
     };
-    console.log(data1);
+    // console.log(data1);
     const newBlog = await Blogs.create(data1);
     res.status(200).json({
         status: "success",

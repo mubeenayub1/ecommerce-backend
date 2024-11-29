@@ -1,22 +1,31 @@
 import mongoose from "mongoose";
-import bcrypt from "bcrypt";
 const Schema = mongoose.Schema;
 
-const blogSchema = new Schema({
-  title: {
+const checkoutSchema = new Schema({
+  email: {
     type: String,
     require: true,
   },
-  shortDescription: {
+  firstName: {
     type: String,
     require: true,
   },
-  image: {
+  lastName: {
     type: String,
     require: true,
   },
-  content: {
+  phoneNumber: {
     type: String,
+    require: true,
+  },
+  totalPrice: {
+    type: String,
+    require: true,
+  },
+  delivery: { type: Object, require: true },
+  productId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Products",
   },
   createdAt: {
     type: Date,
@@ -30,4 +39,4 @@ const blogSchema = new Schema({
   },
 });
 
-export const Blogs = mongoose.model("Blogs", blogSchema);
+export const Checkout = mongoose.model("Checkout", checkoutSchema);

@@ -14,7 +14,8 @@ import subcategoryRouter from "./routes/SubCategory.js";
 import sizeRouter from "./routes/SizeGuideRoute.js";
 import productRouter from './routes/ProductRouter.js';
 import brandRouter from "./routes/BrandRouter.js";
-import { createServer } from "http";
+import http from "http";
+import checkoutRouter from "./routes/CheckoutRouter.js";
 
 // import bodyParser from 'body-parser';
 // import puppeteer from 'puppeteer';
@@ -39,7 +40,7 @@ app.use(
     useTempFiles: true,
   })
 );
-const server = createServer(app);
+const server = http.createServer(app);
 
 // app routes
 app.use("/brands", brandRouter);
@@ -53,6 +54,7 @@ app.use("/category", categoryRouter);
 app.use("/subcategory", subcategoryRouter);
 app.use("/sizeGuide", sizeRouter);
 app.use("/products", productRouter);
+app.use("/checkout", checkoutRouter);
 // async function scrapeMyFreeScoreNow(email, password) {
 //   const browser = await puppeteer.launch({ headless: true });
 //   const page = await browser.newPage();
@@ -190,13 +192,12 @@ app.get("/", async (req, res) => {
   res.send("App Is Running");
 });
 
-app.listen(process.env.APP_PORT || 5000, () => {
-  // console.log(`Server is running on port 5000`,this.address().port, app.settings.env);
-  console.log("Express server listening on port %d in %s mode");
+server.listen(process.env.PORT || 5000, () => {
+  console.log(`Server  is running on %d port %s mode`, server.address().port,app.settings.env);
 });
-// app.listen(process.env.PORT || 5000, function(){
- 
-// });
+
+
+
 app.use(ErrorMiddleware);
 // zuoYdCmrxdA2Vzb0
 // seatweb4

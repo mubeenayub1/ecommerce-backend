@@ -58,9 +58,9 @@ export const getCategoryById = async (req, res, next) => {
 // update category
 export const updateCategory = catchAsyncError(async (req, res, next) => {
   const data = req.body;
-  const blogId = req.params.id;
+  const categoryId = req.params.id;
 
-  const updatedCategory = await Category.findByIdAndUpdate(blogId, data, {
+  const updatedCategory = await Category.findByIdAndUpdate(categoryId, data, {
     new: true,
   });
   if (!updatedCategory) {

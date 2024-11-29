@@ -1,5 +1,6 @@
 import { catchAsyncError } from "../middleware/catchAsyncError.js";
 import { Products } from "../model/Product.js";
+import { Category } from "../model/category.js";
 import cloudinary from "cloudinary";
 cloudinary.v2.config({
   cloud_name: "ddu4sybue",
@@ -46,7 +47,10 @@ export const createProducts = catchAsyncError(async (req, res, next) => {
 export const getProductsById = async (req, res, next) => {
   const id = req?.params.id;
   try {
-    const data = await Products.findById(id);
+    const data = await Products.findById(id)
+      .populate("categoryId")
+      .populate("subCategoryId")
+      .populate("brandId");
 
     res.json({
       status: "success",
@@ -109,7 +113,7 @@ export const getAllProducts = catchAsyncError(async (req, res, next) => {
     });
   }
 });
-export const searchProduct = catchAsyncError(async () => {
+export const searchProduct = catchAsyncError(async (req, res, next) => {
   const { title } = req.query;
 
   try {
@@ -118,7 +122,7 @@ export const searchProduct = catchAsyncError(async () => {
     }
 
     const products = await Products.find({
-      title: { $regex: title, $options: "i" }, // Case-insensitive search
+      title: { $regex: title, $options: "i" },
     });
 
     res.status(200).json({ data: products, status: "success" });
@@ -126,6 +130,28 @@ export const searchProduct = catchAsyncError(async () => {
     res.status(500).json({ error: "Failed to fetch products" });
   }
 });
+
+export const getProductbyCategorId = async (req, res, next) => {
+  const categoryId = req?.params.categoryId;
+  try {
+    const data = await Products.find({ categoryId: categoryId })
+      .populate("categoryId")
+      .populate("subCategoryId")
+      .populate("brandId");
+    const cateforyData = await await Category.findById(categoryId);
+    res.json({
+      status: "success",
+      data: data,
+      category: cateforyData,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      status: "fail",
+      error: "Internal Server Error",
+    });
+  }
+};
 // delete products
 export const deleteproductsById = async (req, res, next) => {
   const id = req.params.id;
