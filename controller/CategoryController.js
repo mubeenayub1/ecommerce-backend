@@ -77,19 +77,30 @@ export const updateCategory = catchAsyncError(async (req, res, next) => {
 // Get All category
 export const getAllCategory = catchAsyncError(async (req, res, next) => {
   try {
-    const category = await Category.find();
+    const categories = await Category.aggregate([
+      {
+        $lookup: {
+          from: 'subcategories',        
+          localField: '_id',       
+          foreignField: 'categoryId',     
+          as: 'subcategories',     
+        },
+      },
+    ]);
+
     res.status(200).json({
       status: "success",
-      data: category,
+      data: categories,
     });
   } catch (error) {
-    console.error("Error fetching users:", error);
+    console.error("Error fetching categories:", error);
     res.status(500).json({
       status: "fail",
       error: "Internal Server Error",
     });
   }
 });
+
 // delete category
 export const deleteCategoryById = async (req, res, next) => {
   const id = req.params.id;

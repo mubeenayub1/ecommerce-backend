@@ -23,10 +23,12 @@ const checkoutSchema = new Schema({
     require: true,
   },
   delivery: { type: Object, require: true },
-  productId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Products",
-  },
+  productIds: [ // Updated field to handle multiple products
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Products",
+    },
+  ],
   createdAt: {
     type: Date,
     default: Date.now,
